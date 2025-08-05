@@ -4,6 +4,11 @@
  */
 package actividad2_sergioescobar_lp4;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alexi
@@ -127,8 +132,46 @@ public class Retiro_JFrame extends javax.swing.JFrame {
 
     private void jbtnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRetirarActionPerformed
         // TODO add your handling code here:
+         Connection con = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+        Conexion conexion = new Conexion(); 
+        con = conexion.getConnection();
+        
+        String texto = jtfRetirar.getText().trim().replace("$", "");
+        float monto = Float.parseFloat(texto);
+        
+        if (monto <= 0) {
+            JOptionPane.showMessageDialog(null, "El monto debe ser mayor a cero.");
+            return;
+        }
+        
+        String sql = "UPDATE cuenta SET saldo = saldo - ? WHERE id = 1";
+
+        pstmt = con.prepareStatement(sql);
+        pstmt.setFloat(1, monto);
+
+        int filas = pstmt.executeUpdate();
+
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(this, "Retiro realizado con éxito.");
+            jtfRetirar.setText("$");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al retirar en la cuenta.");
+        }
+
+        con.close();
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingresa un número válido en el campo de retiro.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al realizar el retiro: " + e.getMessage());
+    }
+        /*
         String opcion_retirar = jtfRetirar.getText().trim();
         String retiro_final = opcion_retirar.replace("$", "").trim();
+        */
         this.dispose();
     }//GEN-LAST:event_jbtnRetirarActionPerformed
 
