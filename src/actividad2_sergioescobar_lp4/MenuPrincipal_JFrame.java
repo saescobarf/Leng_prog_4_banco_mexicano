@@ -86,6 +86,11 @@ public class MenuPrincipal_JFrame extends javax.swing.JFrame {
 
         jtfMenu.setEditable(false);
         jtfMenu.setBackground(new java.awt.Color(204, 204, 204));
+        jtfMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfMenuActionPerformed(evt);
+            }
+        });
 
         jbtnContinuar.setBackground(new java.awt.Color(153, 153, 153));
         jbtnContinuar.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
@@ -208,6 +213,10 @@ public class MenuPrincipal_JFrame extends javax.swing.JFrame {
         }
     }
     }//GEN-LAST:event_jbtnContinuarActionPerformed
+
+    private void jtfMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfMenuActionPerformed
 
     /**
      * @param args the command line arguments
