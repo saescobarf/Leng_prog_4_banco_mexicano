@@ -24,24 +24,25 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jtfRetirar" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="jtfSaldo" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="jbtnSalirRetirar" min="-2" pref="123" max="-2" attributes="0"/>
-              <EmptySpace pref="88" max="32767" attributes="0"/>
-              <Component id="jbtnRetirar" min="-2" pref="123" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jbtnRetirar" min="-2" pref="123" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -53,13 +54,10 @@
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jtfRetirar" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jbtnSalirRetirar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="jbtnRetirar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="jtfSaldo" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
+              <Component id="jbtnRetirar" min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,24 +79,17 @@
         <Property name="text" type="java.lang.String" value="Tu saldo actual es:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtfRetirar">
+    <Component class="javax.swing.JTextField" name="jtfSaldo">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="$"/>
       </Properties>
       <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfRetirarFocusLost"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfRetirarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jbtnSalirRetirar">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial Black" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="SALIR"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSalirRetirarActionPerformed"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfSaldoFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfSaldoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnRetirar">
@@ -112,8 +103,11 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="RETIRAR"/>
+        <Property name="text" type="java.lang.String" value="ACEPTAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnRetirarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

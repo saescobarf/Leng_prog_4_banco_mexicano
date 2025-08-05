@@ -4,6 +4,12 @@
  */
 package actividad2_sergioescobar_lp4;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+
 /**
  *
  * @author alexi
@@ -17,6 +23,41 @@ public class Saldo_JFrame extends javax.swing.JFrame {
      */
     public Saldo_JFrame() {
         initComponents();
+        
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;  
+        
+        try {
+        Conexion conexion = new Conexion(); 
+        con = conexion.getConnection();
+        
+        //String texto = jtfSaldo.getText().trim().replace("$", "");
+        //float monto = Float.parseFloat(texto);
+        
+       
+        
+        String sql = "SELECT saldo FROM cuenta WHERE id = 1";
+        pstmt = con.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+        float saldo = rs.getFloat("saldo");
+        jtfSaldo.setText("$" + saldo);
+        } else {
+        JOptionPane.showMessageDialog(null, "La cuenta del usuario no fue encontrada.");
+        }
+
+        
+
+        con.close();
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingresa un número válido en el campo de retiro.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al realizar el retiro: " + e.getMessage());
+    }
+        //jtfSaldo.setText("4");
     }
 
     /**
@@ -30,8 +71,7 @@ public class Saldo_JFrame extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtfRetirar = new javax.swing.JTextField();
-        jbtnSalirRetirar = new javax.swing.JButton();
+        jtfSaldo = new javax.swing.JTextField();
         jbtnRetirar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,51 +82,49 @@ public class Saldo_JFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Tu saldo actual es:");
 
-        jtfRetirar.setText("$");
-        jtfRetirar.addFocusListener(new java.awt.event.FocusAdapter() {
+        jtfSaldo.setEditable(false);
+        jtfSaldo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jtfSaldo.setText("$");
+        jtfSaldo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfRetirarFocusLost(evt);
+                jtfSaldoFocusLost(evt);
             }
         });
-        jtfRetirar.addActionListener(new java.awt.event.ActionListener() {
+        jtfSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfRetirarActionPerformed(evt);
-            }
-        });
-
-        jbtnSalirRetirar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jbtnSalirRetirar.setText("SALIR");
-        jbtnSalirRetirar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnSalirRetirarActionPerformed(evt);
+                jtfSaldoActionPerformed(evt);
             }
         });
 
         jbtnRetirar.setBackground(new java.awt.Color(153, 153, 153));
         jbtnRetirar.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jbtnRetirar.setForeground(new java.awt.Color(255, 255, 255));
-        jbtnRetirar.setText("RETIRAR");
+        jbtnRetirar.setText("ACEPTAR");
+        jbtnRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRetirarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(153, 153, 153))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 117, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(114, 114, 114))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jbtnSalirRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                .addComponent(jbtnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(153, 153, 153))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jbtnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,29 +134,27 @@ public class Saldo_JFrame extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jtfRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnSalirRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addComponent(jtfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jbtnRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfRetirarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfRetirarFocusLost
+    private void jtfSaldoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSaldoFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfRetirarFocusLost
+    }//GEN-LAST:event_jtfSaldoFocusLost
 
-    private void jtfRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRetirarActionPerformed
+    private void jtfSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSaldoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfRetirarActionPerformed
+    }//GEN-LAST:event_jtfSaldoActionPerformed
 
-    private void jbtnSalirRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalirRetirarActionPerformed
+    private void jbtnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRetirarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jbtnSalirRetirarActionPerformed
+    }//GEN-LAST:event_jbtnRetirarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +185,6 @@ public class Saldo_JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jbtnRetirar;
-    private javax.swing.JButton jbtnSalirRetirar;
-    private javax.swing.JTextField jtfRetirar;
+    private javax.swing.JTextField jtfSaldo;
     // End of variables declaration//GEN-END:variables
 }
