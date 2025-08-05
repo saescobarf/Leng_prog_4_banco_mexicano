@@ -163,6 +163,19 @@ public class Deposito_JFrame extends javax.swing.JFrame {
 
         con.close();
         
+        int respuesta = JOptionPane.showConfirmDialog(
+        this,
+        "¿Deseas realizar otro depósito?",
+        "Depositar nuevamente",
+        JOptionPane.YES_NO_OPTION
+        );
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+            jtfDepositar.setText("$");
+        } else {
+        this.dispose();
+        };
+        
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Ingresa un número válido en el campo de depósito.");
     } catch (SQLException e) {
