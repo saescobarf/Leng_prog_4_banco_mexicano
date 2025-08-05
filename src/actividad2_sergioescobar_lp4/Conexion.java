@@ -18,16 +18,17 @@ public class Conexion {
      public Connection getConnection() {
         Connection con = null;
         try {
-            // Cargar el driver (opcional en JDBC 4.0+)
+            // Carga del driver
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            // Cambia estos valores por los tuyos
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=LAPTOP-SERGIOAL\\SQLEXPRESS";
-            String user = "tuUsuario";
-            String password = "tuContraseña";
+            // datos de conexión 
+            String url = "jdbc:sqlserver://LAPTOP-SERGIOAL\\SQLEXPRESS:1433;databaseName=Cajerobd;encrypt=false;";
+
+            String user = "saescobarf";
+            String password = "root12345.";
 
             con = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión exitosa a SQL Server");
+            System.out.println("Conexion exitosa a SQL Server");
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error al conectar: " + e.getMessage());
@@ -35,3 +36,4 @@ public class Conexion {
         return con;
     }
 }
+
