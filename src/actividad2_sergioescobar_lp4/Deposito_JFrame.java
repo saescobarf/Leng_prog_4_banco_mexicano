@@ -4,7 +4,11 @@
  */
 package actividad2_sergioescobar_lp4;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 /**
  *
  * @author alexi
@@ -128,9 +132,45 @@ public class Deposito_JFrame extends javax.swing.JFrame {
 
     private void jbtnDepositar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDepositar1ActionPerformed
         // TODO add your handling code here:
-        String opcion_depositar = jtfDepositar.getText().trim();
-        String deposito_final = opcion_depositar.replace("$", "").trim();
+        Connection con = null;
+        PreparedStatement pstmt = null;
         
+        try {
+        Conexion conexion = new Conexion(); 
+        con = conexion.getConnection();
+        
+        String texto = jtfDepositar.getText().trim().replace("$", "");
+        float monto = Float.parseFloat(texto);
+        
+        if (monto <= 0) {
+            JOptionPane.showMessageDialog(null, "El monto debe ser mayor a cero.");
+            return;
+        }
+        
+        String sql = "UPDATE cuenta SET saldo = saldo + ? WHERE id = 1";
+
+        pstmt = con.prepareStatement(sql);
+        pstmt.setFloat(1, monto);
+
+        int filas = pstmt.executeUpdate();
+
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(this, "Depósito realizado con éxito.");
+            jtfDepositar.setText("$");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al depositar en la cuenta.");
+        }
+
+        con.close();
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingresa un número válido en el campo de depósito.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al realizar el depósito: " + e.getMessage());
+    }
+}
+        
+       /*
         int respuesta = JOptionPane.showConfirmDialog(
         this,
         "¿Deseas realizar otro depósito?",
@@ -141,7 +181,7 @@ public class Deposito_JFrame extends javax.swing.JFrame {
             jtfDepositar.setText("$");
         } else {
         this.dispose();
-    }
+    };
         
     }//GEN-LAST:event_jbtnDepositar1ActionPerformed
 
